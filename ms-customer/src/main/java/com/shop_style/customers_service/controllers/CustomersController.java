@@ -2,6 +2,7 @@ package com.shop_style.customers_service.controllers;
 
 import com.shop_style.customers_service.domain.dtos.CustomerDTO;
 import com.shop_style.customers_service.domain.facade.CustomerFacade;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,13 +32,13 @@ public class CustomersController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> postCustomer(@RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<CustomerDTO> postCustomer(@Valid @RequestBody CustomerDTO customerDTO){
         CustomerDTO createdCustomer = customersFacade.createCustomer(customerDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDTO> putCustomer(@RequestBody CustomerDTO customerDTO, @PathVariable int id){
+    public ResponseEntity<CustomerDTO> putCustomer(@RequestBody @Valid CustomerDTO customerDTO, @PathVariable int id){
         CustomerDTO updatedCustomer = customersFacade.updateCustomer(id, customerDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updatedCustomer);
     }

@@ -110,7 +110,6 @@ class SkuDtoValidationTest {
     @Test
     @DisplayName("SkuDto Validation - validation of Sku with null size.")
     public void validationOfSkuWithPriceWithNullSize(){
-        //String EXPECTED_MESSAGE = "Size must be S, M, L, XL or XXL.";
         String EXPECTED_MESSAGE = "Size is required.";
 
         SkuDto skuDtoForValidation = skuStubsBuilder.withSize(null).getDto();

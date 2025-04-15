@@ -3,6 +3,7 @@ package com.shop_style.customers_service.controllers;
 import com.shop_style.customers_service.domain.dtos.AddressDTO;
 
 import com.shop_style.customers_service.domain.facade.CustomerFacade;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +21,13 @@ public class AddressController {
     }
 
     @PostMapping
-    public ResponseEntity<AddressDTO> postAddress(@RequestBody AddressDTO addressDTO){
+    public ResponseEntity<AddressDTO> postAddress(@RequestBody @Valid AddressDTO addressDTO){
         AddressDTO addressCreated = customerFacade.createAddress(addressDTO);
         return new ResponseEntity<>(addressCreated, CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AddressDTO> putAddress(@PathVariable int id, @RequestBody AddressDTO updates){
+    public ResponseEntity<AddressDTO> putAddress(@PathVariable int id, @RequestBody @Valid AddressDTO updates){
         AddressDTO updatedAddress = customerFacade.updateAddress(id, updates);
         return new ResponseEntity<>(updatedAddress, OK);
     }

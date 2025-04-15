@@ -27,11 +27,11 @@ public class CustomerDTO {
     @NotBlank(message = "A CPF should be provided.")
     private String cpf;
 
-    @Pattern(regexp = "[\\p{L}]{3,}", message = "First name should be at least 3 characters long and have only letters.")
+    @Pattern(regexp = "^[\\p{L}]{3,}", message = "First name should be at least 3 characters long and have only letters.")
     @NotBlank(message = "Should be provided a first name.")
     private String firstName;
 
-    @Pattern(regexp = "\\p{L}{3,}", message = "Last name should be at least 3 characters long and have only letters.")
+    @Pattern(regexp = "[\\p{L}]{3,}( \\p{L}*)*", message = "Last name should be at least 3 characters long and have only letters and spaces.")
     @NotBlank(message = "Should be provided a last name.")
     private String lastName;
 
