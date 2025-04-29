@@ -45,4 +45,7 @@ public class Category {
         return Objects.hash(name, active);
     }
 
+    public boolean hasParent(){
+        return parent != null;
+    }
 }

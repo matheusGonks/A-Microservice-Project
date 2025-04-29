@@ -17,4 +17,5 @@ class CategoryTest {
         assertEquals(category1, category2);
         assertEquals(category2, category3);
     }
+
 }

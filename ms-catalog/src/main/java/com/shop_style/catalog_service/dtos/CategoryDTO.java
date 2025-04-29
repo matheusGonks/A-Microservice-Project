@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CategoryDTO {
@@ -40,6 +41,10 @@ public class CategoryDTO {
         this.childrenCategories = new ArrayList<>();
     }
 
+    public void setChildrenCategories(List<CategoryDTO> childrenCategories) {
+        this.childrenCategories = childrenCategories;
+    }
+
     public long getId() {
         return id;
     }
@@ -59,4 +64,16 @@ public class CategoryDTO {
     public List<CategoryDTO> getChildrenCategories() {
         return childrenCategories;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof CategoryDTO that)) return false;
+        return Objects.equals(name, that.name) && Objects.equals(active, that.active);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, active);
+    }
+
 }
