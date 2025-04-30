@@ -52,7 +52,7 @@ class ProductServiceTest {
 
         when(productRepository.findAll()).thenReturn(products);
 
-        List<Product> foundProducts = productService.retrieveAll();
+        List<Product> foundProducts = productService.retrieveAllProducts();
         assertEquals(products, foundProducts, "Not returned expected list of products." );
     }
 

@@ -5,7 +5,7 @@ import com.shop_style.catalog_service.model.Category;
 
 public class CategoryStubsBuilder {
 
-    private long id = 1L;
+    private Long id = 1L;
 
     private String name = "Masculine";
 
@@ -16,11 +16,22 @@ public class CategoryStubsBuilder {
     public CategoryStubsBuilder(){}
 
     public Category getInstance(){
-        return new Category(name, active);
+        Category c = new Category(name, active);
+        c.setId(id);
+        return c;
     }
 
     public CategoryDTO getDto(){
         return new CategoryDTO(id, name, active, parentId);
+    }
+
+    // Instance Fields  ==================================
+    // Instance Objects and lists will be generally initialized outside Builder;
+    // Like Parent Category and List of children categories.
+
+    public CategoryStubsBuilder withId(Long id){
+        this.id = id;
+        return this;
     }
 
     public CategoryStubsBuilder withName(String name) {
@@ -32,6 +43,8 @@ public class CategoryStubsBuilder {
         this.active = active;
         return this;
     }
+
+    // Dto fields ==================================
 
     public CategoryStubsBuilder withParentId(Long id){
         this.parentId = id;

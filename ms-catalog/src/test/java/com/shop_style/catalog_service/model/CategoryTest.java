@@ -15,7 +15,7 @@ class CategoryTest {
         Category category3 = new Category("Shorts", true);
 
         assertEquals(category1, category2);
-        assertEquals(category2, category3);
+        assertNotEquals(category2, category3);
     }
 
 }

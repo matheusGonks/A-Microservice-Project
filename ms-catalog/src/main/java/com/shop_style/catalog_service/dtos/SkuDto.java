@@ -4,9 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.shop_style.catalog_service.model.Product;
 import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
+@Setter
+@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SkuDto {
 
@@ -54,4 +59,16 @@ public class SkuDto {
         this.width = width;
         this.productId = productId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof SkuDto skuDto)) return false;
+        return Objects.equals(price, skuDto.price) && Objects.equals(quantity, skuDto.quantity) && Objects.equals(size, skuDto.size) && Objects.equals(color, skuDto.color) && Objects.equals(height, skuDto.height) && Objects.equals(width, skuDto.width) && Objects.equals(productId, skuDto.productId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(price, quantity, size, color, height, width, productId);
+    }
+
 }

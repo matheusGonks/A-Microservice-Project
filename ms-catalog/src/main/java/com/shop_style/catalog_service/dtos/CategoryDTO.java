@@ -5,11 +5,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Setter
+@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CategoryDTO {
 
@@ -41,28 +45,12 @@ public class CategoryDTO {
         this.childrenCategories = new ArrayList<>();
     }
 
-    public void setChildrenCategories(List<CategoryDTO> childrenCategories) {
-        this.childrenCategories = childrenCategories;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public boolean isActive() {
         return active;
     }
 
     public long getParentId() {
         return parentId;
-    }
-
-    public List<CategoryDTO> getChildrenCategories() {
-        return childrenCategories;
     }
 
     @Override
@@ -73,7 +61,17 @@ public class CategoryDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, active);
+        return Objects.hash(name, active, parentId);
     }
 
+    @Override
+    public String toString() {
+        return "CategoryDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", active=" + active +
+                ", parentId=" + parentId +
+                ", childrenCategories=" + childrenCategories +
+                '}';
+    }
 }

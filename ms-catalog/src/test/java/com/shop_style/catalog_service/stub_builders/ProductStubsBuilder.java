@@ -2,9 +2,10 @@ package com.shop_style.catalog_service.stub_builders;
 
 import com.shop_style.catalog_service.dtos.ProductDto;
 import com.shop_style.catalog_service.model.Product;
-import org.postgresql.largeobject.BlobOutputStream;
 
 public class ProductStubsBuilder {
+
+    private Long id = 1L;
 
     private String name = "Red Shirt";
 
@@ -21,13 +22,16 @@ public class ProductStubsBuilder {
     public ProductStubsBuilder(){}
 
     public Product getInstance(){
-        return new Product(
+        Product p = new Product(
                 this.name,
                 this.description,
                 this.brand,
                 this.material,
                 this.active
         );
+
+        p.setId(id);
+        return p;
     }
 
     public ProductDto getDto(){
@@ -36,9 +40,17 @@ public class ProductStubsBuilder {
                 this.description,
                 this.brand,
                 this.material,
-                this.active,
-                this.categoryId
+                this.active
         );
+    }
+
+    // Instance setters  ==================================
+    // Instance Objects and lists will be generally initialized outside Builder;
+    // Like SKUs list and Category which it belongs to.
+
+    public ProductStubsBuilder withId(Long id){
+        this.id = id;
+        return this;
     }
 
     public ProductStubsBuilder withName(String name) {
@@ -66,9 +78,10 @@ public class ProductStubsBuilder {
         return this;
     }
 
+    // DTO setters ==================================
+
     public ProductStubsBuilder withCategoryId(Long id){
         this.categoryId = id;
         return this;
     }
-
 }

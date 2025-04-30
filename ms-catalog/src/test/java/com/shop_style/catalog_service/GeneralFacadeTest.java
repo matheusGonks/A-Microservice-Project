@@ -1,10 +1,14 @@
 package com.shop_style.catalog_service;
 
 import com.shop_style.catalog_service.dtos.CategoryDTO;
+import com.shop_style.catalog_service.dtos.ProductDto;
 import com.shop_style.catalog_service.facade.GeneralFacade;
 import com.shop_style.catalog_service.model.Category;
+import com.shop_style.catalog_service.model.Product;
 import com.shop_style.catalog_service.services.CategoryService;
+import com.shop_style.catalog_service.services.ProductService;
 import com.shop_style.catalog_service.stub_builders.CategoryStubsBuilder;
+import com.shop_style.catalog_service.stub_builders.ProductStubsBuilder;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +28,8 @@ class GeneralFacadeTest {
 
     CategoryStubsBuilder categoryStubsBuilder;
 
+    ProductStubsBuilder productStubsBuilder;
+
     private final Long STUB_ID = 1L;
 
     @InjectMocks
@@ -32,8 +38,12 @@ class GeneralFacadeTest {
     @Mock
     CategoryService categoryService;
 
+    @Mock
+    ProductService productService;
+
     @BeforeEach
     public void setup(){
+        productStubsBuilder = new ProductStubsBuilder();
         categoryStubsBuilder = new CategoryStubsBuilder();
     }
 
@@ -86,7 +96,7 @@ class GeneralFacadeTest {
         CategoryDTO createdCategory = generalFacade.saveNewCategory(stubDto);
         assertAll(
                 () -> assertEquals(stubDto.getName() , createdCategory.getName(), "Returned DTO name doesn't match."),
-                () -> assertEquals(stubDto.isActive(), createdCategory.isActive(), "Returned DTO state doesnt match.")
+                () -> assertEquals(stubDto.isActive(), createdCategory.isActive(), "Returned DTO state doesn't match.")
         );
 
         verify(categoryService).saveNewCategory(any(Category.class));
@@ -101,7 +111,6 @@ class GeneralFacadeTest {
 
         CategoryDTO updatedCategoryDto = generalFacade.updateCategory(STUB_ID,updatesDto);
         assertEquals(updatesDto, updatedCategoryDto, "CategoryDTO returned from Facada is not correct. ");
-
         verify(categoryService).updateCategory(any(Long.class), any());
     }
 
@@ -115,5 +124,25 @@ class GeneralFacadeTest {
         CategoryDTO removedCategoryDto = generalFacade.removeCategory(STUB_ID);
         assertEquals(expectedDto, removedCategoryDto, "Returned Dto from facade removal is not the expected.");
     }
+
+//    @Test
+//    @DisplayName("General Facade - retrieval of one product")
+//    public void retrieveAllProducts(){
+//        Product stubProduct1 = productStubsBuilder.getInstance();
+//        ProductDto stubProduct1Dto = productStubsBuilder.getDto();
+//        Product stubProduct2 = productStubsBuilder.withName("Dry fit Leggings").getInstance();
+//        ProductDto stubProduct2Dto = productStubsBuilder.getDto();
+//
+//        when(productService.retrieveAllProducts()).thenReturn(List.of(stubProduct1, stubProduct2));
+//        List<ProductDto> allProducts = generalFacade.retrieveAllProducts();
+//
+//        assertTrue(
+//                allProducts
+//                        .stream()
+//                        .allMatch(dto -> dto.equals(stubProduct1Dto) || dto.equals(stubProduct2Dto))
+//        );
+//
+//    }
+
 
 }

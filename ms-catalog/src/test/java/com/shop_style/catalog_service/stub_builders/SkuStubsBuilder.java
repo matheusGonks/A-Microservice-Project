@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 
 public class SkuStubsBuilder {
 
+    private Long id = 1L;
+
     private BigDecimal price = new BigDecimal("12.49");
 
     private Integer quantity = 40;
@@ -22,11 +24,19 @@ public class SkuStubsBuilder {
     private Long productId = 1L;
 
     public Sku getInstance(){
-        return new Sku(price, quantity, color, size, height, width);
+        Sku s = new Sku(price, quantity, color, size, height, width);
+        s.setId(id);
+        return s;
     }
 
     public SkuDto getDto(){
         return new SkuDto(price, quantity, color, size, height, width, productId);
+    }
+
+    // Instance Fields ==============================
+    public SkuStubsBuilder withId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public SkuStubsBuilder withPrice(String price) {
@@ -59,6 +69,7 @@ public class SkuStubsBuilder {
         return this;
     }
 
+    // Dto fields ======================================
     public SkuStubsBuilder withProductId(Long productId){
         this.productId = productId;
         return this;

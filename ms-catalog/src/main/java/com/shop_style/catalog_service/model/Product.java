@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -33,6 +34,8 @@ public class Product {
     private boolean active;
 
     private Category category;
+
+    private List<Sku> skus;
 
     public Product(String name, String description, String brand, String material, boolean active) {
         this.name = name;

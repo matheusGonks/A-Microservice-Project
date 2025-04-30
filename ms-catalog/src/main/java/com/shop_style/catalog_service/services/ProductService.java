@@ -13,7 +13,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> retrieveAll(){
+    public List<Product> retrieveAllProducts(){
         return productRepository.findAll();
     }
 

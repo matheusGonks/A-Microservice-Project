@@ -28,7 +28,7 @@ public class Category {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Category> childrenCategories;
 
-    public Category(String name, boolean active){
+    public Category(String name, Boolean active){
         this.name = name;
         this.active = active;
         this.childrenCategories = new ArrayList<>();

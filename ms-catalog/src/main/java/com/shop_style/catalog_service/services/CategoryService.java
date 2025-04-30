@@ -24,14 +24,14 @@ public class CategoryService {
         return categoryRepository.findByParentIsNull();
     }
 
-    public Category saveNewCategory(Category newCategory){
-        return categoryRepository.save(newCategory);
-    }
-
     public Category saveNewCategory(Category newCategory, long parentCategoryId){
         Category parentCategory = retrieveCategoryById(parentCategoryId);
         newCategory.setParent(parentCategory);
         return saveNewCategory(newCategory);
+    }
+
+    public Category saveNewCategory(Category newCategory){
+        return categoryRepository.save(newCategory);
     }
 
     public Category removeCategory(long id){
@@ -48,7 +48,7 @@ public class CategoryService {
 
     private Category updateCategoryFields(Category existing, Category updates){
         if(activationHasChanged(existing, updates)){
-            existing = retrieveCategoryWithChildrenFetched(existing.getId());
+            existing = retrieveCategoryWithChildrenFetched(existing.getId()); //fetches children only when necessary
             updateActivationOfAllCategories(existing);
         }
 

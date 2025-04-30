@@ -21,7 +21,7 @@ public class GeneralFacade {
         return categoryService
                 .retrieveAllCategories()
                 .stream()
-                .map(dtoConverter::makeDtoFromCategory)
+                .map(dtoConverter::makeTreeOfDtosFromCategory)
                 .toList();
     }
 

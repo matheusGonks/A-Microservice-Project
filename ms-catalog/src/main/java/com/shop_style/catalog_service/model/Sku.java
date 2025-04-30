@@ -2,15 +2,18 @@ package com.shop_style.catalog_service.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
+@Setter
 @Getter
 public class Sku {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private BigDecimal price;
@@ -42,31 +45,28 @@ public class Sku {
         this.width = width;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Sku sku)) return false;
+        return quantity == sku.quantity && height == sku.height && width == sku.width && Objects.equals(id, sku.id) && Objects.equals(price, sku.price) && Objects.equals(color, sku.color) && Objects.equals(size, sku.size) && Objects.equals(product, sku.product);
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, price, quantity, color, size, height, width, product);
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    @Override
+    public String toString() {
+        return "Sku{" +
+                "id=" + id +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", color='" + color + '\'' +
+                ", size='" + size + '\'' +
+                ", height=" + height +
+                ", width=" + width +
+                ", product=" + product +
+                '}';
     }
 }
