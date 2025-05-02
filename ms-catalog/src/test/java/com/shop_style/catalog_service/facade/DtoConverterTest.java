@@ -1,9 +1,8 @@
-package com.shop_style.catalog_service;
+package com.shop_style.catalog_service.facade;
 
 import com.shop_style.catalog_service.dtos.CategoryDTO;
 import com.shop_style.catalog_service.dtos.ProductDto;
 import com.shop_style.catalog_service.dtos.SkuDto;
-import com.shop_style.catalog_service.facade.DtoConverter;
 import com.shop_style.catalog_service.model.Category;
 import com.shop_style.catalog_service.model.Product;
 import com.shop_style.catalog_service.model.Sku;

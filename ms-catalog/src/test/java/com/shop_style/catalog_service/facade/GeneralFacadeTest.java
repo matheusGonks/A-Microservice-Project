@@ -1,8 +1,7 @@
-package com.shop_style.catalog_service;
+package com.shop_style.catalog_service.facade;
 
 import com.shop_style.catalog_service.dtos.CategoryDTO;
 import com.shop_style.catalog_service.dtos.ProductDto;
-import com.shop_style.catalog_service.facade.GeneralFacade;
 import com.shop_style.catalog_service.model.Category;
 import com.shop_style.catalog_service.model.Product;
 import com.shop_style.catalog_service.services.CategoryService;
@@ -50,24 +49,24 @@ class GeneralFacadeTest {
     @Test
     @DisplayName("GeneralFacade - retrieves all Categories")
     public void retrievalOfAllCategories(){
-        Category stub1 = categoryStubsBuilder.withName("Feminine").getInstance();
-        CategoryDTO stub1DTO = categoryStubsBuilder.getDto();
+        Category rootCategory1 = categoryStubsBuilder.withName("Feminine").getInstance();
+        CategoryDTO rootCategory1DTO = categoryStubsBuilder.getDto();
 
-        Category stub2 = categoryStubsBuilder.withName("Shirt").getInstance();
-        stub1.setChildrenCategories(List.of(stub2));
-        CategoryDTO stub2DTO = categoryStubsBuilder.getDto();
+        Category childCategory = categoryStubsBuilder.withName("Shirt").getInstance();
+        rootCategory1.setChildrenCategories(List.of(childCategory));
+        CategoryDTO childCategory1DTO = categoryStubsBuilder.getDto();
 
-        Category stub3 = categoryStubsBuilder.withName("Masculine").getInstance();
-        CategoryDTO stub3DTO = categoryStubsBuilder.getDto();
-        when(categoryService.retrieveAllCategories()).thenReturn(List.of(stub1, stub3));
+        Category rootCategory2 = categoryStubsBuilder.withName("Masculine").getInstance();
+        CategoryDTO rootCategory2DTO = categoryStubsBuilder.getDto();
+        when(categoryService.retrieveAllCategories()).thenReturn(List.of(rootCategory1, rootCategory2));
 
         List<CategoryDTO> allCategories = generalFacade.retrieveAllCategories();
         assertAll(
-                () -> assertEquals(allCategories.get(0), stub1DTO, "Did not convert 1st category properly."),
+                () -> assertEquals(allCategories.get(0), rootCategory1DTO, "Did not convert 1st category properly."),
 
-                () -> assertEquals(allCategories.get(1), stub3DTO, "Did not convert 2nd category properly."),
+                () -> assertEquals(allCategories.get(1), rootCategory2DTO, "Did not convert 2nd category properly."),
 
-                () -> assertTrue(allCategories.get(0).getChildrenCategories().contains(stub2DTO),
+                () -> assertTrue(allCategories.get(0).getChildrenCategories().contains(childCategory1DTO),
                         "Did not convert child category properly." )
         );
         verify(categoryService).retrieveAllCategories();
@@ -80,8 +79,8 @@ class GeneralFacadeTest {
         CategoryDTO stubDto = categoryStubsBuilder.getDto();
         when(categoryService.retrieveCategoryById(any(Long.class))).thenReturn(stubCategory);
 
-        CategoryDTO retrievedCategory = generalFacade.retrieveCategoryById(STUB_ID);
-        assertEquals(stubDto, retrievedCategory,"Did not convert Category for Dto");
+        CategoryDTO retrievedCategoryDto = generalFacade.retrieveCategoryById(STUB_ID);
+        assertEquals(stubDto, retrievedCategoryDto,"Did not convert Category for Dto");
 
         verify(categoryService).retrieveCategoryById(STUB_ID);
     }
@@ -93,10 +92,10 @@ class GeneralFacadeTest {
         Category stub = categoryStubsBuilder.getInstance();
         when(categoryService.saveNewCategory(any(Category.class))).thenReturn(stub);
 
-        CategoryDTO createdCategory = generalFacade.saveNewCategory(stubDto);
+        CategoryDTO createdCategoryDto = generalFacade.saveNewCategory(stubDto);
         assertAll(
-                () -> assertEquals(stubDto.getName() , createdCategory.getName(), "Returned DTO name doesn't match."),
-                () -> assertEquals(stubDto.isActive(), createdCategory.isActive(), "Returned DTO state doesn't match.")
+                () -> assertEquals(stubDto.getName() , createdCategoryDto.getName(), "Returned DTO name doesn't match."),
+                () -> assertEquals(stubDto.isActive(), createdCategoryDto.isActive(), "Returned DTO state doesn't match.")
         );
 
         verify(categoryService).saveNewCategory(any(Category.class));
@@ -125,24 +124,24 @@ class GeneralFacadeTest {
         assertEquals(expectedDto, removedCategoryDto, "Returned Dto from facade removal is not the expected.");
     }
 
-//    @Test
-//    @DisplayName("General Facade - retrieval of one product")
-//    public void retrieveAllProducts(){
-//        Product stubProduct1 = productStubsBuilder.getInstance();
-//        ProductDto stubProduct1Dto = productStubsBuilder.getDto();
-//        Product stubProduct2 = productStubsBuilder.withName("Dry fit Leggings").getInstance();
-//        ProductDto stubProduct2Dto = productStubsBuilder.getDto();
-//
-//        when(productService.retrieveAllProducts()).thenReturn(List.of(stubProduct1, stubProduct2));
-//        List<ProductDto> allProducts = generalFacade.retrieveAllProducts();
-//
-//        assertTrue(
-//                allProducts
-//                        .stream()
-//                        .allMatch(dto -> dto.equals(stubProduct1Dto) || dto.equals(stubProduct2Dto))
-//        );
-//
-//    }
+    @Test
+    @DisplayName("General Facade - retrieval of all products")
+    public void retrieveAllProducts(){
+        Product stubProduct1 = productStubsBuilder.getInstance();
+        ProductDto stubProduct1Dto = productStubsBuilder.getDto();
+
+        Product stubProduct2 = productStubsBuilder.withName("Dry fit Leggings").getInstance();
+        ProductDto stubProduct2Dto = productStubsBuilder.getDto();
+
+        when(productService.retrieveAllProducts()).thenReturn(List.of(stubProduct1, stubProduct2));
+        List<ProductDto> allProducts = generalFacade.retrieveAllProducts();
+        assertTrue(
+                allProducts
+                        .stream()
+                        .allMatch(dto -> dto.equals(stubProduct1Dto) || dto.equals(stubProduct2Dto))
+        );
+
+    }
 
 
 }
