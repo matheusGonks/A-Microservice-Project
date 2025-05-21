@@ -66,7 +66,7 @@ public class DtoConverter {
         CategoryDTO categoryDTO = makeDtoFromCategory(product.getCategory());
         List<SkuDto> skusDtos = product.getSkus().stream().map(this::makeDtoFromSku).toList();
 
-        productDto.setCategory(categoryDTO);
+        productDto.setCategoryId(categoryDTO.getId());
         productDto.setSkus(skusDtos);
         return productDto;
     }

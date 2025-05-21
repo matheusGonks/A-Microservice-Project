@@ -1,7 +1,11 @@
 package com.shop_style.catalog_service.stub_builders;
 
 import com.shop_style.catalog_service.dtos.ProductDto;
+import com.shop_style.catalog_service.model.Category;
 import com.shop_style.catalog_service.model.Product;
+import com.shop_style.catalog_service.model.Sku;
+
+import java.util.List;
 
 public class ProductStubsBuilder {
 
@@ -35,13 +39,15 @@ public class ProductStubsBuilder {
     }
 
     public ProductDto getDto(){
-        return new ProductDto(
+        ProductDto p = new ProductDto(
                 this.name,
                 this.description,
                 this.brand,
                 this.material,
                 this.active
         );
+        p.setCategoryId(id);
+        return p;
     }
 
     // Instance setters  ==================================

@@ -1,6 +1,7 @@
 package com.shop_style.catalog_service.stub_builders;
 
 import com.shop_style.catalog_service.dtos.SkuDto;
+import com.shop_style.catalog_service.model.Product;
 import com.shop_style.catalog_service.model.Sku;
 
 import java.math.BigDecimal;

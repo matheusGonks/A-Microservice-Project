@@ -67,7 +67,7 @@ public class CategoryService {
     }
 
     private void updateActivationOfAllCategories(Category category){
-        category.setActive(false);
+        category.setActive(!category.isActive());
         category.getChildrenCategories().forEach(this::updateActivationOfAllCategories);
     }
 

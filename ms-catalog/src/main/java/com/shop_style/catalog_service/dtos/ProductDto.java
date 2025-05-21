@@ -51,11 +51,25 @@ public class ProductDto {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof ProductDto that)) return false;
-        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(brand, that.brand) && Objects.equals(material, that.material) && Objects.equals(active, that.active) && Objects.equals(categoryId, that.categoryId);
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(brand, that.brand) && Objects.equals(material, that.material) && Objects.equals(active, that.active);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(name, description, brand, material, active, categoryId);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", brand='" + brand + '\'' +
+                ", material='" + material + '\'' +
+                ", active=" + active +
+                ", categoryId=" + categoryId +
+                ", category=" + category +
+                '}';
     }
 }
