@@ -1,5 +1,6 @@
 package com.shop_style.catalog_service.dtos;
 
+import com.shop_style.catalog_service.dtos.category.CategoryDTO;
 import com.shop_style.catalog_service.stub_builders.CategoryStubsBuilder;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

@@ -1,11 +1,7 @@
 package com.shop_style.catalog_service.stub_builders;
 
-import com.shop_style.catalog_service.dtos.ProductDto;
-import com.shop_style.catalog_service.model.Category;
+import com.shop_style.catalog_service.dtos.product.ProductDto;
 import com.shop_style.catalog_service.model.Product;
-import com.shop_style.catalog_service.model.Sku;
-
-import java.util.List;
 
 public class ProductStubsBuilder {
 
@@ -46,7 +42,7 @@ public class ProductStubsBuilder {
                 this.material,
                 this.active
         );
-        p.setCategoryId(id);
+        p.setCategoryId(categoryId);
         return p;
     }
 

@@ -1,8 +1,8 @@
 package com.shop_style.catalog_service.facade;
 
-import com.shop_style.catalog_service.dtos.CategoryDTO;
-import com.shop_style.catalog_service.dtos.ProductDto;
-import com.shop_style.catalog_service.dtos.SkuDto;
+import com.shop_style.catalog_service.dtos.category.CategoryDTO;
+import com.shop_style.catalog_service.dtos.product.ProductDto;
+import com.shop_style.catalog_service.dtos.sku.SkuDto;
 import com.shop_style.catalog_service.model.Category;
 import com.shop_style.catalog_service.model.Product;
 import com.shop_style.catalog_service.model.Sku;
@@ -54,13 +54,13 @@ public class GeneralFacade {
         return dtoConverter.makeDtoFromCategory(saved);
     }
 
-    public CategoryDTO updateCategory(Long id, CategoryDTO updatesDto){
+    public CategoryDTO updateCategoryById(Long id, CategoryDTO updatesDto){
         Category updates = dtoConverter.makeCategoryFromDto(updatesDto);
         Category updatedCategory = categoryService.updateCategory(id, updates);
         return dtoConverter.makeDtoFromCategory(updatedCategory);
     }
 
-    public CategoryDTO removeCategory(Long id){
+    public CategoryDTO removeCategoryById(Long id){
         Category removedCategory = categoryService.removeCategory(id);
         return dtoConverter.makeDtoFromCategory(removedCategory);
     }
@@ -78,7 +78,7 @@ public class GeneralFacade {
         return dtoConverter.makeDtoFromProduct(retrieved);
     }
 
-    public ProductDto createNewProduct(ProductDto productDto){
+    public ProductDto saveNewProduct(ProductDto productDto){
         Product product = dtoConverter.makeProductFromDto(productDto);
         Category productOwningCategory = categoryService.retrieveCategoryById(productDto.getCategoryId());
         product.setCategory(productOwningCategory);
@@ -87,7 +87,7 @@ public class GeneralFacade {
         return dtoConverter.makeDtoFromProduct(productReturnedFromCreation);
     }
 
-    public ProductDto updateProduct(Long id, ProductDto updatesDto){
+    public ProductDto updateProductById(Long id, ProductDto updatesDto){
         Product updatesInstance = dtoConverter.makeProductFromDto(updatesDto);
         Category productOwningCategory = categoryService.retrieveCategoryById(updatesDto.getCategoryId());
         updatesInstance.setCategory(productOwningCategory);
@@ -96,12 +96,12 @@ public class GeneralFacade {
         return dtoConverter.makeDtoFromProduct(productReturnedFromUpdate);
     }
 
-    public ProductDto removeProduct(Long id){
+    public ProductDto removeProductById(Long id){
         Product removedProduct = productService.removeProduct(id);
         return dtoConverter.makeDtoFromProduct(removedProduct);
     }
 
-    public SkuDto createSku(SkuDto skuDto){
+    public SkuDto saveNewSku(SkuDto skuDto){
         Product owningProduct = productService.retrieveById(skuDto.getProductId());
         Sku sku = dtoConverter.makeSkuFromDto(skuDto);
         sku.setProduct(owningProduct);
@@ -110,7 +110,7 @@ public class GeneralFacade {
         return dtoConverter.makeDtoFromSku(savedSku);
     }
 
-    public SkuDto updateSku(Long id, SkuDto skuDto){
+    public SkuDto updateSkuById(Long id, SkuDto skuDto){
         Product owningProduct = productService.retrieveById(skuDto.getProductId());
         Sku sku = dtoConverter.makeSkuFromDto(skuDto);
         sku.setProduct(owningProduct);
@@ -119,7 +119,7 @@ public class GeneralFacade {
         return dtoConverter.makeDtoFromSku(savedSku);
     }
 
-    public SkuDto removeSku(Long id){
+    public SkuDto removeSkuById(Long id){
         Sku removedSku = skuService.removeSku(id);
         return dtoConverter.makeDtoFromSku(removedSku);
     }

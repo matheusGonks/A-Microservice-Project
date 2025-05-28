@@ -1,7 +1,6 @@
 package com.shop_style.catalog_service.stub_builders;
 
-import com.shop_style.catalog_service.dtos.SkuDto;
-import com.shop_style.catalog_service.model.Product;
+import com.shop_style.catalog_service.dtos.sku.SkuDto;
 import com.shop_style.catalog_service.model.Sku;
 
 import java.math.BigDecimal;
@@ -31,7 +30,7 @@ public class SkuStubsBuilder {
     }
 
     public SkuDto getDto(){
-        return new SkuDto(price, quantity, color, size, height, width, productId);
+        return new SkuDto(id,price, quantity, color, size, height, width, productId);
     }
 
     // Instance Fields ==============================
@@ -41,7 +40,7 @@ public class SkuStubsBuilder {
     }
 
     public SkuStubsBuilder withPrice(String price) {
-        this.price = new BigDecimal(price);
+        this.price = (price == null)? null : new BigDecimal(price);
         return this;
     }
 

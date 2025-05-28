@@ -1,7 +1,8 @@
-package com.shop_style.catalog_service.dtos;
+package com.shop_style.catalog_service.dtos.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.shop_style.catalog_service.model.Category;
+import com.shop_style.catalog_service.dtos.sku.SkuDto;
+import com.shop_style.catalog_service.dtos.category.CategoryDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class ProductDto {
     private Boolean active;
 
     @NotNull(message = "An associated category must be provided.")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long categoryId;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

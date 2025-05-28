@@ -1,8 +1,8 @@
 package com.shop_style.catalog_service.facade;
 
-import com.shop_style.catalog_service.dtos.CategoryDTO;
-import com.shop_style.catalog_service.dtos.ProductDto;
-import com.shop_style.catalog_service.dtos.SkuDto;
+import com.shop_style.catalog_service.dtos.category.CategoryDTO;
+import com.shop_style.catalog_service.dtos.product.ProductDto;
+import com.shop_style.catalog_service.dtos.sku.SkuDto;
 import com.shop_style.catalog_service.model.Category;
 import com.shop_style.catalog_service.model.Product;
 import com.shop_style.catalog_service.model.Sku;
@@ -140,17 +140,17 @@ class GeneralFacadeTest {
         when(categoryService.updateCategory(any(Long.class), any())).thenReturn(stubCategory);
         when(dtoConverter.makeDtoFromCategory(stubCategory)).thenReturn(stubCategoryDto);
 
-        CategoryDTO updatedCategoryDto = generalFacade.updateCategory(STUB_ID, stubCategoryDto);
+        CategoryDTO updatedCategoryDto = generalFacade.updateCategoryById(STUB_ID, stubCategoryDto);
         assertEquals(stubCategoryDto, updatedCategoryDto, "CategoryDTO returned from Facada is not correct. ");
     }
 
     @Test
     @DisplayName("General Facade - removal of existing category.")
-    public void removeCategoryById(){
+    public void removeCategoryByIdById(){
         when(categoryService.removeCategory(any(Long.class))).thenReturn(stubCategory);
         when(dtoConverter.makeDtoFromCategory(stubCategory)).thenReturn(stubCategoryDto);
 
-        CategoryDTO removedCategoryDto = generalFacade.removeCategory(STUB_ID);
+        CategoryDTO removedCategoryDto = generalFacade.removeCategoryById(STUB_ID);
         assertEquals(stubCategoryDto, removedCategoryDto, "Returned Dto from facade removal is not the expected.");
         verify(categoryService).removeCategory(STUB_ID);
         verify(dtoConverter).makeDtoFromCategory(stubCategory);
@@ -197,7 +197,7 @@ class GeneralFacadeTest {
         when(productService.saveProduct(stubProduct)).thenReturn(stubProduct);
         when(dtoConverter.makeDtoFromProduct(stubProduct)).thenReturn(stubProductDto);
 
-        ProductDto createdProduct = generalFacade.createNewProduct(stubProductDto);
+        ProductDto createdProduct = generalFacade.saveNewProduct(stubProductDto);
         assertEquals(stubProductDto, createdProduct, "Product returned from facade after creation is not the expected.");
         verify(dtoConverter).makeDtoFromProduct(stubProduct);
         verify(categoryService).retrieveCategoryById(owningCategoryId);
@@ -213,7 +213,7 @@ class GeneralFacadeTest {
         when(productService.updateProduct(STUB_ID, stubProduct)).thenReturn(stubProduct);
         when(dtoConverter.makeDtoFromProduct(stubProduct)).thenReturn(stubProductDto);
 
-        ProductDto updatedProductDto = generalFacade.updateProduct(STUB_ID, stubProductDto);
+        ProductDto updatedProductDto = generalFacade.updateProductById(STUB_ID, stubProductDto);
         assertEquals(stubProductDto, updatedProductDto, "Product returned from update is not as expected");
         verify(dtoConverter).makeProductFromDto(stubProductDto);
         verify(dtoConverter).makeDtoFromProduct(stubProduct);
@@ -226,7 +226,7 @@ class GeneralFacadeTest {
         when(productService.removeProduct(STUB_ID)).thenReturn(stubProduct);
         when(dtoConverter.makeDtoFromProduct(stubProduct)).thenReturn(stubProductDto);
 
-        ProductDto removedProduct = generalFacade.removeProduct(STUB_ID);
+        ProductDto removedProduct = generalFacade.removeProductById(STUB_ID);
         assertEquals(stubProductDto, removedProduct, "Product returned from removal is not as expected.");
         verify(productService).removeProduct(STUB_ID);
         verify(dtoConverter).makeDtoFromProduct(stubProduct);
@@ -234,7 +234,7 @@ class GeneralFacadeTest {
 
     @Test
     @DisplayName("General Facade - creation of new Sku")
-    public void createSku(){
+    public void saveNewSku(){
         Long productId = stubSkuDto.getProductId();
 
         when(dtoConverter.makeSkuFromDto(stubSkuDto)).thenReturn(stubSku);
@@ -242,7 +242,7 @@ class GeneralFacadeTest {
         when(productService.retrieveById(productId)).thenReturn(stubProduct);
         when(skuService.saveSku(stubSku)).thenReturn(stubSku);
 
-        SkuDto createdSku = generalFacade.createSku(stubSkuDto);
+        SkuDto createdSku = generalFacade.saveNewSku(stubSkuDto);
         assertEquals(stubSkuDto, createdSku, "Sku returned from facade is not as expected.");
         verify(dtoConverter).makeDtoFromSku(stubSku);
         verify(dtoConverter).makeSkuFromDto(stubSkuDto);
@@ -252,7 +252,7 @@ class GeneralFacadeTest {
 
     @Test
     @DisplayName("General Facade - update of existing Sku")
-    public void updateSku(){
+    public void updateSkuById(){
         Long productId = stubSkuDto.getProductId();
 
         when(dtoConverter.makeSkuFromDto(stubSkuDto)).thenReturn(stubSku);
@@ -260,7 +260,7 @@ class GeneralFacadeTest {
         when(productService.retrieveById(productId)).thenReturn(stubProduct);
         when(skuService.updateSku(STUB_ID , stubSku)).thenReturn(stubSku);
 
-        SkuDto updatedSku = generalFacade.updateSku(STUB_ID, stubSkuDto);
+        SkuDto updatedSku = generalFacade.updateSkuById(STUB_ID, stubSkuDto);
         assertEquals(stubSkuDto, updatedSku, "Sku returned from facade is not as expected.");
         verify(dtoConverter).makeDtoFromSku(stubSku);
         verify(dtoConverter).makeSkuFromDto(stubSkuDto);
@@ -270,14 +270,14 @@ class GeneralFacadeTest {
 
     @Test
     @DisplayName("General Facade - removal of existing Sku")
-    public void removeSku(){
+    public void removeSkuById(){
         SkuDto stubSkuDto = skuStubsBuilder.getDto();
         Sku stubSku = skuStubsBuilder.getInstance();
 
         when(skuService.removeSku(STUB_ID)).thenReturn(stubSku);
         when(dtoConverter.makeDtoFromSku(stubSku)).thenReturn(stubSkuDto);
 
-        SkuDto removedSku = generalFacade.removeSku(STUB_ID);
+        SkuDto removedSku = generalFacade.removeSkuById(STUB_ID);
         assertEquals(stubSkuDto,removedSku, "Sku returned from removal is no as expected.");
         verify(dtoConverter).makeDtoFromSku(stubSku);
         verify(skuService).removeSku(STUB_ID);

@@ -48,12 +48,12 @@ public class Sku {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Sku sku)) return false;
-        return quantity == sku.quantity && height == sku.height && width == sku.width && Objects.equals(id, sku.id) && Objects.equals(price, sku.price) && Objects.equals(color, sku.color) && Objects.equals(size, sku.size) && Objects.equals(product, sku.product);
+        return quantity == sku.quantity && height == sku.height && width == sku.width && Objects.equals(price, sku.price) && Objects.equals(color, sku.color) && Objects.equals(size, sku.size) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, quantity, color, size, height, width, product);
+        return Objects.hash(price, quantity, color, size, height, width);
     }
 
     @Override

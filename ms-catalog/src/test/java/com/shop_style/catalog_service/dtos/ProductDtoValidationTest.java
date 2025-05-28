@@ -1,5 +1,6 @@
 package com.shop_style.catalog_service.dtos;
 
+import com.shop_style.catalog_service.dtos.product.ProductDto;
 import com.shop_style.catalog_service.stub_builders.ProductStubsBuilder;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -105,7 +106,6 @@ public class ProductDtoValidationTest {
         ProductDto productForValidation = productStubsBuilder.withCategoryId(null).getDto();
 
         Set<ConstraintViolation<ProductDto>> violations = validator.validate(productForValidation);
-
         assertTrue(
                 isExpectedMessagePresentInViolations(violations, EXPECTED_MESSAGE),
                 "Expected violation was not found. Violations found :" + violations

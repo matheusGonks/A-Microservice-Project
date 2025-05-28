@@ -1,5 +1,6 @@
 package com.shop_style.catalog_service.dtos;
 
+import com.shop_style.catalog_service.dtos.sku.SkuDto;
 import com.shop_style.catalog_service.stub_builders.SkuStubsBuilder;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

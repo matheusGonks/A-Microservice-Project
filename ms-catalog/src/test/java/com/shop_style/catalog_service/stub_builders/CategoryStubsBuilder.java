@@ -1,6 +1,6 @@
 package com.shop_style.catalog_service.stub_builders;
 
-import com.shop_style.catalog_service.dtos.CategoryDTO;
+import com.shop_style.catalog_service.dtos.category.CategoryDTO;
 import com.shop_style.catalog_service.model.Category;
 
 public class CategoryStubsBuilder {

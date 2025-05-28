@@ -1,8 +1,8 @@
-package com.shop_style.catalog_service.dtos;
+package com.shop_style.catalog_service.dtos.sku;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.shop_style.catalog_service.model.Product;
+import com.shop_style.catalog_service.dtos.product.ProductDto;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,9 +48,10 @@ public class SkuDto {
     private Long productId;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Product product;
+    private ProductDto product;
 
-    public SkuDto(BigDecimal price, Integer quantity, String color, String size, Integer height, Integer width, Long productId) {
+    public SkuDto(Long id, BigDecimal price, Integer quantity, String color, String size, Integer height, Integer width, Long productId) {
+        this.id = id;
         this.price = price;
         this.quantity = quantity;
         this.color = color;

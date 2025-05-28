@@ -1,8 +1,8 @@
 package com.shop_style.catalog_service.facade;
 
-import com.shop_style.catalog_service.dtos.CategoryDTO;
-import com.shop_style.catalog_service.dtos.ProductDto;
-import com.shop_style.catalog_service.dtos.SkuDto;
+import com.shop_style.catalog_service.dtos.category.CategoryDTO;
+import com.shop_style.catalog_service.dtos.product.ProductDto;
+import com.shop_style.catalog_service.dtos.sku.SkuDto;
 import com.shop_style.catalog_service.model.Category;
 import com.shop_style.catalog_service.model.Product;
 import com.shop_style.catalog_service.model.Sku;
@@ -66,6 +66,7 @@ public class DtoConverter {
         CategoryDTO categoryDTO = makeDtoFromCategory(product.getCategory());
         List<SkuDto> skusDtos = product.getSkus().stream().map(this::makeDtoFromSku).toList();
 
+        productDto.setCategory(categoryDTO);
         productDto.setCategoryId(categoryDTO.getId());
         productDto.setSkus(skusDtos);
         return productDto;
@@ -83,6 +84,7 @@ public class DtoConverter {
 
     public SkuDto makeDtoFromSku(Sku sku){
         return new SkuDto(
+                sku.getId(),
             sku.getPrice(),
             sku.getQuantity(),
             sku.getColor(),

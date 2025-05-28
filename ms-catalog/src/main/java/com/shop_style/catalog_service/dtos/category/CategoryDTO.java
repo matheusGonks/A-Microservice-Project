@@ -1,4 +1,4 @@
-package com.shop_style.catalog_service.dtos;
+package com.shop_style.catalog_service.dtos.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CategoryDTO {
 
@@ -47,10 +49,6 @@ public class CategoryDTO {
 
     public boolean isActive() {
         return active;
-    }
-
-    public long getParentId() {
-        return parentId;
     }
 
     @Override
